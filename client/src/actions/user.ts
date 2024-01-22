@@ -2,7 +2,6 @@
 
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-import { revalidatePath } from "next/cache";
 
 export async function addUser(formData: FormData) {
   const userInput = {
@@ -12,13 +11,19 @@ export async function addUser(formData: FormData) {
     password: formData.get("password"),
   };
 
-  const res = await fetch("http://localhost:3000/api/users/register", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userInput),
-  });
+  const res = await fetch(
+    "https://p3gc02alvinliem.vercel.app/api/users/register",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userInput),
+    }
+  );
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
 
   await res.json();
   redirect(`/login`);
@@ -30,13 +35,19 @@ export async function login(formData: FormData) {
     password: formData.get("password"),
   };
 
-  const res = await fetch("http://localhost:3000/api/users/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userInput),
-  });
+  const res = await fetch(
+    "https://p3gc02alvinliem.vercel.app/api/users/login",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userInput),
+    }
+  );
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
 
   const { access_token } = await res.json();
 

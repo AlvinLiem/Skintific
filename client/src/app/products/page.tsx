@@ -13,6 +13,8 @@ import {
 } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
+export const dynamic = "force-dynamic";
+
 export default function Products() {
   const [data, setData] = useState<ProductSample[]>([]);
   const [page, setPage] = useState(1);
